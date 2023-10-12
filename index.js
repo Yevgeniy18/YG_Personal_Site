@@ -1,5 +1,7 @@
-const contactMenu = document.querySelector('.header__wrapper__collapse__menu')
-
+const contactMenu = document.querySelector(".header__wrapper__collapse__menu");
+const arrow = document.getElementById("contact").lastChild;
+let index = 0;
+let toggled = false;
 const swiper = new Swiper(".swiper", {
   slidesPerView: 3,
 
@@ -35,17 +37,27 @@ const swiper2 = new Swiper(".swiper-2", {
   },
 });
 
+const contact = document.getElementById("contact");
 
-const contact = document.getElementById('contact')
-
-contact.addEventListener('click', (e) => {
-
-  if(contactMenu.classList.contains('.header__wrapper__collapse__menu__show')){
-    contactMenu.classList.remove('.header__wrapper__collapse__menu__show')
+contact.addEventListener("click", (e) => {
+  if (index % 2 === 0) {
+    toggled = true;
+    index++;
   } else {
-    contactMenu.classList.toggle('header__wrapper__collapse__menu__show')
+    toggled = false;
+    index++;
   }
 
+  if (
+    contactMenu.classList.contains(".header__wrapper__collapse__menu__show")
+  ) {
+    contactMenu.classList.remove(".header__wrapper__collapse__menu__show");
+  } else {
+    contactMenu.classList.toggle("header__wrapper__collapse__menu__show");
+    if (contactMenu.classList.contains("header__wrapper__collapse__menu")) {
+      contactMenu.style.opacity = 1;
+    }
+  }
 
-
-})
+  arrow.style.transform = toggled ? "rotate(0deg)" : "rotate(-90deg)";
+});
