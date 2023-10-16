@@ -39,6 +39,11 @@ body {
   justify-content: start;
   align-items: center;
 }
+@media screen and (max-width: 560px) {
+  .header__wrapper {
+    display: none;
+  }
+}
 .header__wrapper > ul {
   display: flex;
 }
@@ -137,6 +142,8 @@ body {
   background: #dbd8e3;
   border-radius: 5px;
   margin: 0.1rem 0;
+  font-weight: 400;
+  cursor: pointer;
 }
 .header__wrapper__collapse__menu__show > li:nth-child(1) {
   animation-delay: 0.1s;
@@ -153,6 +160,73 @@ body {
 .header__wrapper__collapse__menu__show > li:nth-child(4) {
   animation-delay: 0.4s;
   animation: move_in 0.3s 0.6s both;
+}
+.header__wrapper__collapse__menu__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header__wrapper__collapse__menu__link > i {
+  margin-right: 0.5rem;
+}
+.header__wrapper__collapse__menu__link > a {
+  text-decoration: none;
+  color: #000;
+}
+
+.toggle__button__mobile {
+  width: 100%;
+  height: 5vh;
+  position: relative;
+}
+@media screen and (min-width: 560px) {
+  .toggle__button__mobile {
+    display: none;
+  }
+}
+.toggle__button__mobile > label {
+  position: absolute;
+  left: 30px;
+  top: 20px;
+}
+.toggle__button__mobile > label > i {
+  font-size: 35px;
+  color: #f1f1f1;
+}
+
+#toggle {
+  display: none;
+}
+
+.mobile__sidebar {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: -100%;
+  top: 0;
+  z-index: 10;
+  transition: 300ms ease-in-out all;
+  backdrop-filter: blur(10px);
+}
+.mobile__sidebar > label {
+  position: absolute;
+  left: 30px;
+  top: 20px;
+}
+.mobile__sidebar > label > i {
+  font-size: 35px;
+  color: #f1f1f1;
+}
+
+#toggle:checked ~ .mobile__sidebar {
+  left: 0;
+  transition: 300ms ease-in-out all;
+  backdrop-filter: blur(10px);
+}
+
+#toggle:checked ~ .toggle__button__mobile {
+  opacity: 0;
+  transition: 300ms ease-in-out all;
 }
 
 @keyframes move_in {
@@ -179,6 +253,11 @@ body {
   min-height: 100vh;
   margin-top: 2rem;
 }
+@media screen and (max-width: 560px) {
+  .main__wrapper {
+    min-height: 0;
+  }
+}
 .main__wrapper__info {
   display: flex;
 }
@@ -186,6 +265,7 @@ body {
   .main__wrapper__info {
     flex-direction: column;
     align-items: center;
+    margin-top: 4rem;
   }
 }
 .main__wrapper__info__image {
@@ -206,11 +286,16 @@ body {
   overflow: hidden;
   border-radius: 5px;
 }
+@media screen and (max-width: 560px) {
+  .main__wrapper__info__image__container {
+    width: 60%;
+    height: 60%;
+  }
+}
 .main__wrapper__info__image__container > img {
   object-fit: cover;
   height: 100%;
   width: 100%;
-  filter: grayscale(100%);
 }
 .main__wrapper__info__basic {
   width: 70%;
