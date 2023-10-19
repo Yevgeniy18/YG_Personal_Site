@@ -1,5 +1,7 @@
 const contactMenu = document.querySelector(".header__wrapper__collapse__menu");
-const arrow = document.getElementById("contact").lastChild;
+const arrow = document.querySelector(".btn").lastChild;
+
+console.log(arrow);
 let index = 0;
 let toggled = false;
 const swiper = new Swiper(".swiper", {
@@ -60,4 +62,17 @@ contact.addEventListener("click", (e) => {
   }
 
   arrow.style.transform = toggled ? "rotate(0deg)" : "rotate(-90deg)";
+});
+
+// Closing menu outside
+
+document.addEventListener("click", (e) => {
+  if (!e.target.parentElement.classList.contains("btn")) {
+    let menuEl = document.querySelector(".header__wrapper__collapse__menu");
+
+    if (menuEl.classList.contains("header__wrapper__collapse__menu__show")) {
+      menuEl.classList.remove("header__wrapper__collapse__menu__show");
+      arrow.style.transform = "rotate(-90deg)";
+    }
+  }
 });
