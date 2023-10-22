@@ -1,19 +1,30 @@
 const contactMenu = document.querySelector(".header__wrapper__collapse__menu");
 const arrow = document.querySelector(".btn").lastChild;
-
-console.log(arrow);
+const bodyEl = document.getElementsByTagName("body")[0]
 let index = 0;
 let toggled = false;
 const swiper = new Swiper(".swiper", {
-  slidesPerView: 3,
+  slidesPerView: "auto",
 
-  effect: "coverflow",
+  // effect: "coverflow",
 
   // If we need pagination
   pagination: {
     el: ".swiper-pagination",
     type: "bullets",
   },
+    breakpoints: {
+        // when window width is <= 499px
+        499: {
+            slidesPerView: 1,
+            spaceBetweenSlides: 10
+        },
+        // when window width is <= 999px
+        999: {
+            slidesPerView: 2,
+            spaceBetweenSlides: 10
+        }
+    },
 
   // Navigation arrows
   navigation: {
@@ -22,15 +33,27 @@ const swiper = new Swiper(".swiper", {
   },
 });
 const swiper2 = new Swiper(".swiper-2", {
-  slidesPerView: 3,
+  slidesPerView: 2,
 
-  effect: "coverflow",
+  // effect: "coverflow",
 
   // If we need pagination
   pagination: {
     el: ".swiper-pagination",
     type: "bullets",
   },
+  breakpoints: {
+    // when window width is <= 499px
+    499: {
+        slidesPerView: 1,
+        spaceBetweenSlides: 10
+    },
+    // when window width is <= 999px
+    999: {
+        slidesPerView: 2,
+        spaceBetweenSlides: 10
+    }
+},
 
   // Navigation arrows
   navigation: {
@@ -76,3 +99,68 @@ document.addEventListener("click", (e) => {
     }
   }
 });
+
+
+
+// Message on load 
+
+
+window.addEventListener('load', () => {
+
+  let popupElement = document.createElement('div')
+  popupElement.classList.add('popup__wrapper')
+  let messageContainer = document.createElement('div')
+  messageContainer.classList.add('popup__wrapper__container')
+  popupElement.appendChild(messageContainer)
+
+  let messageTxt = document.createElement('div')
+  messageTxt.classList.add('popup__wrapper__container__txt')
+  messageTxt.textContent = "My site is still being completed! Meanwhile, have a look around :)"
+  messageContainer.appendChild(messageTxt)
+
+
+  let btn = document.createElement('button')
+  btn.textContent = "Got it!"
+
+  messageContainer.appendChild(btn)
+  setTimeout(() => {
+    bodyEl.appendChild(popupElement)
+  }, 5000)
+})
+
+let btnPopup = document.querySelector('.popup__wrapper__container')
+
+
+
+
+function waitForElementToExist(selector){
+  return new Promise(resolve => {
+    if(document.querySelector(selector)){
+      return resolve (document.querySelector(selector))
+    }
+
+
+    const observer = new MutationObserver(mutations => {
+
+      if(document.querySelector(selector)){
+        observer.disconnect()
+        resolve(document.querySelector(selector))
+      }
+    })
+
+    observer.observe(document.body, {
+      childList:true,
+      subtree:true
+    })
+  })
+
+}
+
+
+ waitForElementToExist(".popup__wrapper__container > button").then((elt) =>{
+
+elt.addEventListener('click', () => {
+
+  document.querySelector(".popup__wrapper").style.display="none"
+})
+})
